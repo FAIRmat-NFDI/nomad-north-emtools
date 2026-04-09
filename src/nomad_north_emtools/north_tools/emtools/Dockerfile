@@ -23,7 +23,6 @@ RUN apt update \
    && rm -rf /var/lib/apt/lists/*
 
 COPY --chown=${NB_UID}:${NB_GID} "src/nomad_north_emtools/north_tools/emtools/environment.yml" "/tmp/environment.yml"
-COPY --chown=${NB_UID}:${NB_GID} "src/nomad_north_emtools/north_tools/emtools/example" "${HOME}/example"
 # see nomad-north-nionswift plugins Dockerfile on how to possibly make that copy layering slimmer
 
 # Create the named environment with packages as mentioned in the environment.yml file, clear mamba cache
