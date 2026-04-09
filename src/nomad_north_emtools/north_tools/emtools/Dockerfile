@@ -1,33 +1,46 @@
 ARG IMAGE_TAG=main
-ARG BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-jupyter
+ARG BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-desktop-base
 ARG PLUGIN_NAME=nomad-north-emtools
 
 FROM ${BASE_IMAGE}:${IMAGE_TAG} AS base
 
-# This Dockerfile intentionally only selects a NORTH base image.
-#
-# Its purpose is to provide a minimal and reproducible starting point for
-# building a custom NOMAD NORTH tool image. The base image already contains
-# the complete NORTH runtime environment (e.g. JupyterLab or desktop setup),
-# while this repository defines where tool-specific extensions should be added.
-#
-# By default, the resulting image is identical to the selected base image.
-# Users are expected to extend this Dockerfile to install their plugin and
-# add any additional dependencies or configuration required by the tool.
-#
-# Base image selection:
-#   - Jupyter-based tools:
-#       BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-jupyter
-#   - Tools requiring a graphical user interface:
-#       BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-desktop-base
-#
-# Extend this Dockerfile to:
-#   - install your plugin
-#   - add additional system or Python dependencies
-#   - add tool-specific configuration
-#
-# Reference implementations of NORTH base images:
-#   nomad-north-jupyter:
-#    https://github.com/FAIRmat-NFDI/nomad-north-jupyter/blob/main/src/nomad_north_jupyter/north_tools/jupyter_north_tool/Dockerfile 
-#   nomad-north-desktop-base:
-#     https://github.com/FAIRmat-NFDI/nomad-north-desktop-base/blob/main/Dockerfile
+# Fix: https://github.com/hadolint/hadolint/wiki/DL4006
+# Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+USER root
+
+# with pre-existing NB_USER="jovyan" and NB_UID=100, NB_GID=1000
+ENV HOME=/home/${NB_USER}
+ENV CONDA_DIR=/opt/conda
+
+RUN apt update \
+   && apt-get install --no-install-recommends -y \
+        wget \
+        libgl1 \
+        libglu1-mesa \
+        libglu1-mesa-dev \
+   && rm -rf /var/lib/apt/lists/*
+
+COPY --chown=${NB_UID}:${NB_GID} "src/nomad_north_emtools/north_tools/emtools/environment.yml" "/tmp/environment.yml"
+COPY --chown=${NB_UID}:${NB_GID} "src/nomad_north_emtools/north_tools/emtools/example" "${HOME}/example"
+# see nomad-north-nionswift plugins Dockerfile on how to possibly make that copy layering slimmer
+
+# Create the named environment with packages as mentioned in the environment.yml file, clear mamba cache
+# ARG env_name=emtools
+RUN mamba env create -f "/tmp/environment.yml" \
+    && mamba clean --all -f -y \
+    && rm -rf "/tmp/environment.yml"
+
+# Register environment as Jupyter kernel
+RUN conda run -n emtools python -m ipykernel install --user --name=emtools \
+    && fix-permissions "${CONDA_DIR}" \
+    && fix-permissions "${HOME}"
+
+RUN echo "\n# Automatically activate apmtools environment" >> "${HOME}/.bashrc" \
+    && echo "conda activate emtools" >>"${HOME}/.bashrc" \
+    && chown ${NB_UID}:${NB_GID} "${HOME}/.bashrc"
+
+# Switch back to jovyan to avoid accidental container runs as root
+USER ${NB_UID}
+WORKDIR "${HOME}"

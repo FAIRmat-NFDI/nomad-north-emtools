@@ -1,46 +1,31 @@
-# emtools - NORTH tool
+# apmtools - NORTH tool
 
-This directory contains the configuration and a minimal Dockerfile template for defining a NORTH (NOMAD Remote Tools Hub) tool.
+This directory contains the configuration for the apmtools NORTH (NOMAD Remote Tools Hub) tool and NOMAD plugin.
 
 ## Quick start
 
-The emtools NORTH tool provides a containerized environment defined in `NORTHtool` definition, `NorthToolEntryPoint`, and Dockerfile.
-
-## Base Image
-
-This tool uses a pre-built base image that includes the NOMAD NORTH environment. You can choose between two base images:
-
-1. **nomad-north-jupyter** — JupyterLab-based environment
-   - Repository: https://github.com/FAIRmat-NFDI/nomad-north-jupyter
-   - Image: `ghcr.io/fairmat-nfdi/nomad-north-jupyter:main`
-
-2. **nomad-north-desktop-base** — Desktop-based environment
-   - Repository: https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
-   - Image: `ghcr.io/fairmat-nfdi/nomad-north-desktop-base:main`
-
-Select the appropriate base image for your use case. The nomad-north-emtools plugin can be installed on top of your chosen base image during the Docker build process (for this you need to extend the Dockerfile).
-
+The apmtools NORTH tool provides a containerized environment defined in a `NORTHTool` definition, a `NorthToolEntryPoint`, and a Dockerfile.
 
 ## Building and testing
 
 Build the Docker image locally:
 
 ```bash
-docker build -f src/nomad_north_emtools/north_tools/emtools/Dockerfile \
-    -t ghcr.io/fairmat-nfdi/nomad-north-emtools:latest .
+docker build -f src/nomad_north_apmtools/north_tools/apmtools/Dockerfile \
+    -t ghcr.io/fairmat-nfdi/nomad-north-apmtools:latest .
 ```
 
 Test the image (for jupyter notebook image):
 
 ```bash
-docker run -p 8888:8888 ghcr.io/fairmat-nfdi/nomad-north-emtools:latest
+docker run -p 8888:8888 ghcr.io/fairmat-nfdi/nomad-north-apmtools:latest
 ```
 
 Access JupyterLab at `http://localhost:8888`.
 
 ## Documentation
 
-For comprehensive documentation on creating and managing NORTH tools, including detailed about some of the topic e.g.,
+For comprehensive documentation on creating and managing NORTH tools, including e.g.,
 
 - Entry point configuration and `NORTHTool` API
 - Docker image structure and best practices

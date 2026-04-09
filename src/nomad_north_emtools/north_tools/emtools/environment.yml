@@ -1,0 +1,9 @@
+name: emtools
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - ipykernel
+  - nomkl
+  - hyperspy
+  - pip
