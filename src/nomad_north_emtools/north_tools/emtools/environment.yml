@@ -6,4 +6,5 @@ dependencies:
   - ipykernel
   - nomkl
   - hyperspy
+  - rosettasciio
   - pip
