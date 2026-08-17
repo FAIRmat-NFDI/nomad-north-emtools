@@ -1,6 +1,11 @@
 # nomad-north-emtools
 
-NOMAD NORTH plugin for analysis of electron microscopy data
+NOMAD NORTH plugin for analysis of electron microscopy data.
+
+`nomad-north-emtools` is a GUI-based NORTH tool offering [HyperSpy](https://hyperspy.org/) (a Python library for multi-dimensional data analysis, widely used for electron microscopy spectroscopy and imaging data) together with [RosettaSciIO](https://hyperspy.org/rosettasciio/)
+(HyperSpy's companion I/O library, covering many microscopy-specific file formats). The
+environment is registered as its own Jupyter kernel (`emtools`) and activated automatically in
+new terminals.
 
 This `nomad` plugin was generated with `Cookiecutter` along with `@nomad`'s [`cookiecutter-nomad-plugin`](https://github.com/FAIRmat-NFDI/cookiecutter-nomad-plugin) template.
 
