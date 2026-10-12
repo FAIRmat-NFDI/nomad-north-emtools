@@ -7,17 +7,17 @@ classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: Apache Software License",
 ]
 name = "nomad-north-emtools"
 description = "NOMAD NORTH plugin for hyperspy"
 dynamic = ["version"]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [
     { name = "Markus Kühbach", email = "markus.kuehbach@physik.hu-berlin.de" },
 ]
@@ -38,7 +38,7 @@ dev = [
     "pytest",
     "structlog",
     "mkdocs",
-    "mkdocs-material==9.7.3",
+    "mkdocs-material",
     "pymdown-extensions",
     "mkdocs-click",
     "pytest-asyncio",
