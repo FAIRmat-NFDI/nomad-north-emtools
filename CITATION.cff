@@ -12,6 +12,7 @@ authors:
   - given-names: Armin
     family-names: Feldhoff
     orcid: 'https://orcid.org/0000-0003-1599-432X'
+doi: '10.5281/zenodo.20051340'
 repository-code: 'https://github.com/FAIRmat-NFDI/nomad-north-emtools'
 keywords:
   - NOMAD
