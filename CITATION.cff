@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: 'nomad-north-emtools: A NOMAD plugin for analysis of electron microscopy data'
-version: 0.1.1
+version: 0.1.2
 message:
   If you use this software, please cite it using the
   metadata from this file.
@@ -12,6 +12,7 @@ authors:
   - given-names: Armin
     family-names: Feldhoff
     orcid: 'https://orcid.org/0000-0003-1599-432X'
+doi: '10.5281/zenodo.20051340'
 repository-code: 'https://github.com/FAIRmat-NFDI/nomad-north-emtools'
 keywords:
   - NOMAD

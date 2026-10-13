@@ -5,6 +5,7 @@ dependencies:
   - python=3.12
   - ipykernel
   - nomkl
-  - hyperspy
-  - rosettasciio
   - pip
+  - pip:
+      - hyperspy[all]
+      - rosettasciio[all]

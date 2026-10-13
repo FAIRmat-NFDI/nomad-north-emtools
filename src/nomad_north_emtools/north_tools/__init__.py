@@ -1,5 +1,5 @@
 from nomad.config.models.north import NORTHTool
-from nomad.config.models.plugins import NorthToolEntryPoint
+from nomad.config.models.plugins import NORTHToolEntryPoint
 
 emtools_north_tool = NORTHTool(
     short_description='Use open source software for analyzing electron microscopy data in NOMAD.',
@@ -24,7 +24,7 @@ emtools_north_tool = NORTHTool(
     display_name='emtools',
 )
 
-emtools = NorthToolEntryPoint(
+emtools = NORTHToolEntryPoint(
     id_url_safe='emtools',
     north_tool=emtools_north_tool,
 )
